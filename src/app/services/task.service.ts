@@ -15,7 +15,7 @@ import {
   UpdateTask,
   IUpdateParentTask,
   IUpdateTask
-} from "projects/task-manager-api/proxy/taskManager-api.service";
+} from "./nswag.service";
 
 import { Task } from "../models/task.model";
 import { ParentTask } from "../models/parent-task.model";

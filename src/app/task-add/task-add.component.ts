@@ -23,7 +23,7 @@ export class AddTaskComponent implements OnInit {
       private fb: FormBuilder,
       private notificationService: NotificationService,
       private taskService: TaskService) {
-      this.addForm = this.fb.group({"task": this.fb.group(new TaskFormModel(Task.Default)) });
+      this.addForm = this.fb.group({"task": this.fb.group(new TaskFormModel(new Task())) });
     }
 
     get taskForm(): FormGroup {
