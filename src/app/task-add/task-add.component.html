@@ -1,0 +1,16 @@
+<div class="my-3 row">
+  <div class="col-md-8">
+    <ng-container *ngIf="parentTasks$ | async as parentTasks">
+      <form [formGroup]="addForm" (ngSubmit)="add(parentTasks)">
+        <task-form [taskForm]="taskForm" [formSubmitted]="formSubmitted" [parentTasks]="parentTasks"></task-form>
+
+        <div class="form-group my-5 row">
+          <div class="col-md-8  col-md-9 offset-md-4 offset-lg-3">
+            <button class="btn btn-primary mr-3">Add Task</button>
+            <button class="btn btn-secondary" type="button" (click)="reset()">Reset</button>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+  </div>
+</div>
