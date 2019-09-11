@@ -8,7 +8,7 @@ import { TaskService } from "../services/task.service";
 import { ParentTask } from "../models/parent-task.model";
 
 @Component({
-    templateUrl: "./add-task.component.html"
+    templateUrl: "./task-add.component.html"
 })
 
 export class AddTaskComponent implements OnInit {
