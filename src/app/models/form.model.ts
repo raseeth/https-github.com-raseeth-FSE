@@ -1,7 +1,6 @@
 import { FormControl, Validators } from "@angular/forms";
 
 import { Task } from "./task.model";
-import * as moment from "moment";
 
 export class TaskFormModel {
     public name = new FormControl();
@@ -17,18 +16,18 @@ export class TaskFormModel {
 
       this.priority.setValue(task.priority);
       this.priority.valueChanges.subscribe(x => task.priority = x);
-      this.priority.setValidators([Validators.required, CustomValidators.priorityRange]);
+      //this.priority.setValidators([Validators.required, this.rangeValidator]);
 
       this.parentTaskName.setValue(task.parentTaskName);
       this.parentTaskName.valueChanges.subscribe(x => task.parentTaskName = x);
 
       this.setStartDate(task.startDate);
       this.startDate.valueChanges.subscribe(x => task.startDate = x);
-      this.startDate.setValidators([Validators.required, CustomValidators.inValidDate]);
+      this.startDate.setValidators([Validators.required, this.dateValidator]);
 
       this.setEndDate(task.endDate);
       this.endDate.valueChanges.subscribe(x => task.endDate = x);
-      this.endDate.setValidators([CustomValidators.inValidDate]);
+      this.endDate.setValidators([this.dateValidator]);
     }
 
     private setStartDate(date: Date): void {
@@ -50,7 +49,7 @@ export class TaskFormModel {
       }
     }
 
-    private inValidDate(control: FormControl): any {
+    private dateValidator(control: FormControl): any {
     if (control.value) {
       const dateSplit = control.value.split("-");
 
@@ -66,13 +65,30 @@ export class TaskFormModel {
         return { invalidDate: true };
       }
 
-      const value = moment(`${+year}-${month}-${date}`, "YYYY-MM-DD", true);
+      //const value = moment(`${+year}-${month}-${date}`, "YYYY-MM-DD", true);
 
-      if (!value.isValid()) {
+      //if (!value.isValid()) {
         return { invalidDate: true };
-      }
+      //}
     }
 
     return null;
+  }
+
+  static whiteSpace(control: FormControl): any {
+    if (control.value) {
+      const isWhitespace = control.value.trim().length === 0;
+      const isValid = !isWhitespace;
+
+      return isValid ? null : { whitespace: true };
+    }
+  }
+
+  static rangeValidator(control: FormControl): any {
+    if (control.value > 0) {
+      return null;
+    }
+
+    return { range: true };
   }
 }
